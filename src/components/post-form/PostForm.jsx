@@ -13,6 +13,8 @@ const PostForm = ({post}) => {
   const navigate = useNavigate()
   const userData = useSelector((state) => state.auth.userData)
 
+  console.log(`userdata --> `,userData);
+
   const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
     defaultValues: {
       title: post?.title || "",
@@ -52,10 +54,10 @@ const PostForm = ({post}) => {
       const dbPost = await appwriteService.createPost({
         ...data,
         documentId: Date.now(),
-        userId: userData.$id
+        userId: userData.$id        
       })
       
-      console.log(`post create result --> ${dbPost}`);
+      console.log(`post create result --> `,dbPost);
 
       if(dbPost) navigate(`/post/${dbPost.$id}`)
     }
